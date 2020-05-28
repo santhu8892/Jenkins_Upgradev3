@@ -10,10 +10,11 @@ pipeline {
                     echo "Now Archiving the Artifacts...."
                     archiveArtifacts artifacts: '**/*.war'
                 }
-                 }
+            }
+        }
         stage('Deploy in Staging Environment'){
             steps{
-                build job: 'ganesh'
+                build job: 'Deploy_Application_Staging_Env'
 
             }
             
@@ -23,10 +24,8 @@ pipeline {
                 timeout(time:5, unit:'DAYS'){
                     input message:'Approve PRODUCTION Deployment?'
                 }
-                build job: 'ganesh prod'
+                build job: 'Deploy_Application_Prod_Env'
             }
-            }
-       
         }
     }
 }
